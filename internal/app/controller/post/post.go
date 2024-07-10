@@ -97,7 +97,7 @@ func (c *Controller) UpdatePost(ctx *gin.Context) {
 	userAccess := models.UserAccess{}
 	err = userAccess.GetUserFromCtx(ctx)
 	if err != nil {
-		ctx.JSON(http.StatusForbidden, gin.H{"err": "resource cannot be accessed"})
+		ctx.JSON(http.StatusForbidden, gin.H{"err": "resource cannot be accessed reason:" + err.Error()})
 		return
 	}
 
@@ -121,7 +121,7 @@ func (c *Controller) DeletePost(ctx *gin.Context) {
 	userAccess := models.UserAccess{}
 	err = userAccess.GetUserFromCtx(ctx)
 	if err != nil {
-		ctx.JSON(http.StatusForbidden, gin.H{"err": "resource cannot be accessed"})
+		ctx.JSON(http.StatusForbidden, gin.H{"err": "resource cannot be accessed reason:" + err.Error()})
 		return
 	}
 

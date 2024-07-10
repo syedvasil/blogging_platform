@@ -45,6 +45,14 @@ func (c *Controller) GetUsers(ctx *gin.Context) {
 	page, _ := strconv.Atoi(ctx.DefaultQuery("page", "1"))
 	limit, _ := strconv.Atoi(ctx.DefaultQuery("limit", "10"))
 
+	access := models.UserAccess{}
+	err := access.GetUserFromCtx(ctx)
+	if err != nil {
+		//|| *access.Role != "admin"
+		ctx.JSON(http.StatusForbidden, gin.H{"err": "resource cannot be accessed reason:" + err.Error()})
+		return
+	}
+
 	users, err := c.service.GetUsers(page, limit)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -86,7 +94,7 @@ func (c *Controller) UpdateUser(ctx *gin.Context) {
 	access := models.UserAccess{}
 	err = access.GetUserFromCtx(ctx)
 	if err != nil {
-		ctx.JSON(http.StatusForbidden, gin.H{"err": "resource cannot be accessed"})
+		ctx.JSON(http.StatusForbidden, gin.H{"err": "resource cannot be accessed reason:" + err.Error()})
 		return
 	}
 
@@ -109,7 +117,7 @@ func (c *Controller) DeleteUser(ctx *gin.Context) {
 	access := models.UserAccess{}
 	err = access.GetUserFromCtx(ctx)
 	if err != nil {
-		ctx.JSON(http.StatusForbidden, gin.H{"err": "resource cannot be accessed"})
+		ctx.JSON(http.StatusForbidden, gin.H{"err": "resource cannot be accessed reason:" + err.Error()})
 		return
 	}
 
