@@ -1,4 +1,3 @@
-basePath: /api/v1
 definitions:
   gin.H:
     additionalProperties: {}
@@ -74,10 +73,15 @@ definitions:
       username:
         type: string
     type: object
-host: localhost:8080
 info:
-  contact: {}
+  contact:
+    email: syedvasil@gmail.com
+    name: Syed
+    url: https://www.linkedin.com/in/syed-vasil/
   description: API documentation for the Blog Platform.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Blog Platform API
   version: "1.0"
 paths:
